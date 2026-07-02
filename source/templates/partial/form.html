@@ -2,10 +2,9 @@
 <div class="card my-5 {{ extra_classes }}">
     <div class="card-header fs-4 text-center py-3">{{ form_title }}</div>
     <div class="card-body">
-        <form action="" id="form" method="POST"">
+        <form action="" id="form" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-                {% csrf_token %}
-                {{ form }}
+            {{ form }}
         </form>
     </div>
     <div class="card-footer text-end py-3">

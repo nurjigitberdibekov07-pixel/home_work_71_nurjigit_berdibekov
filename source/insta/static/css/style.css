@@ -5,7 +5,7 @@
 
 .card-body label {
     display: block;
-    margin-bottom: 6px;
+    margin-top: 6px;
     font-weight: 500;
     color: #495057;
     font-size: 14px;
@@ -13,12 +13,18 @@
 
 .card-body input {
     width: 100%;
+    margin-bottom: 10px;
     padding: 10px 14px;
     border: 1px solid #dee2e6;
     border-radius: 8px;
     font-size: 15px;
     transition: border-color 0.2s, box-shadow 0.2s;
     outline: none;
+}
+
+textarea.form-control {
+    min-height: calc(1.5em + .75rem + calc(var(--bs-border-width) * 2));
+    margin-top: 10px;
 }
 
 .card-body input:focus {

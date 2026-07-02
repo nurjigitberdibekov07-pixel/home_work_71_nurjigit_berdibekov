@@ -1,0 +1,1 @@
+from forms.search import SimpleSearchForm

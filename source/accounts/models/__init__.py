@@ -1,1 +1,1 @@
-from accounts.models.register import Profile
+from accounts.models.accounts import MyUser
