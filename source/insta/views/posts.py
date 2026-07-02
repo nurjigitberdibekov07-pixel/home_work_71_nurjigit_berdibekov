@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView
 
@@ -7,11 +7,14 @@ from insta.forms import PostForm
 from insta.models import Posts
 # Create your views here.
 
-class PostCreateView(LoginRequiredMixin, CreateView):
+class PostCreateView(PermissionRequiredMixin, CreateView):
     model = Posts
     form_class = PostForm
     template_name = 'insta/post_create.html'
     success_url = reverse_lazy('accounts:register')
+
+    def has_permission(self):
+        return self.request.user.pk == self.kwargs['pk']
 
     def form_valid(self, form):
         form.instance.author = self.request.user

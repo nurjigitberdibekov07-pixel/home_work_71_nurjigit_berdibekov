@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="accouts py-5 px-3">
+        {% if search_value %}
+            {% if users %}
+                <table class="table">
+                      <thead>
+                        <tr>
+                            <th scope="col">username</th>
+                            <th scope="col">name</th>
+                            <th scope="col">email</th>
+                            <th scope="col"></th>
+                        </tr>
+                      </thead>
+                    <tbody>
+                        {% for user_obj in users %}
+                            <tr>
+                                <td>{{ user_obj.username }}</td>
+                                <td>{{ user_obj.first_name }}</td>
+                                <td>{{ user_obj.email }}</td>
+                                <td><a href="{% url 'accounts:detail' user_obj.pk %}">View details</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    </table>
+            {% else %}
+                <p>No result</p>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}
