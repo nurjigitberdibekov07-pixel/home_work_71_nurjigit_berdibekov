@@ -1,0 +1,1 @@
+from insta.views.posts import PostCreateView
