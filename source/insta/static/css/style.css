@@ -31,3 +31,14 @@ textarea.form-control {
     border-color: #4f8ef7;
     box-shadow: 0 0 0 3px rgba(79, 142, 247, 0.15);
 }
+
+.profile-avatar {
+    width: 240px;
+    height: 240px;
+    object-fit: cover;
+}
+
+.username{
+    font-family: 'Courier New', monospace;
+    font-size: 50px;
+}
