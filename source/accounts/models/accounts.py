@@ -14,9 +14,14 @@ class MyUser(AbstractUser):
     about_me = models.TextField(max_length=500, null=True, blank=True, verbose_name='О себе')
     phone_number = models.CharField(max_length=20, null=True, blank=True, verbose_name='Номер телефона')
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, null=True, blank=True, verbose_name='Пол')
-    posts_count = models.PositiveIntegerField(default=0, verbose_name='Публикации')
-    followers_count = models.PositiveIntegerField(default=0, verbose_name='Подписчики')
-    following_count = models.PositiveIntegerField(default=0, verbose_name='Подписки')
+    following = models.ManyToManyField(
+        'self',
+        symmetrical=False,
+        related_name='followers',
+        blank=True
+    )
 
     def __str__(self):
         return self.username
+
+
