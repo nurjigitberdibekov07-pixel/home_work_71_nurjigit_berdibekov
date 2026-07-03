@@ -1,10 +1,15 @@
+from multiprocessing import context
+
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.db.models import Q
 from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView, DetailView
 
 from forms import SimpleSearchForm
-from insta.forms import PostForm
-from insta.models import Posts
+from insta.forms import PostForm, CommentsForm
+from insta.models import Posts, Comments
+
+
 # Create your views here.
 
 class PostCreateView(PermissionRequiredMixin, CreateView):
@@ -36,3 +41,39 @@ class PostCreateView(PermissionRequiredMixin, CreateView):
         if not next_url:
             next_url = reverse('accounts:detail', kwargs={'pk': self.request.user.pk})
         return next_url
+
+
+class PostsListView(PermissionRequiredMixin, ListView):
+    model = Posts
+    template_name = 'insta/posts_list.html'
+    context_object_name = 'posts'
+
+    def has_permission(self):
+        return self.request.user.is_authenticated
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comments_form'] = CommentsForm()
+        return context
+
+    def get_queryset(self):
+        return Posts.objects.filter(Q(author__in=self.request.user.following.all())).order_by('-created_at')
+
+
+class PostDetailView(PermissionRequiredMixin, DetailView):
+    model = Posts
+    template_name = 'insta/post_detail.html'
+    context_object_name = 'post'
+
+    def has_permission(self):
+        return self.request.user.is_authenticated
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['comments_form'] = CommentsForm()
+        context['comments'] = Comments.objects.filter(post=self.object).order_by('-created_at')
+
+
+        return context
+

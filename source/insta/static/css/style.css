@@ -38,6 +38,12 @@ textarea.form-control {
     object-fit: cover;
 }
 
+.profile-avatar-small{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
 .username{
     font-family: 'Courier New', monospace;
     font-size: 50px;
