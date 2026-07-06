@@ -10,7 +10,7 @@ class MyUser(AbstractUser):
         ('female', 'Female'),
     )
 
-    avatar = models.ImageField(null=True, blank=True, upload_to=get_avatar_path, verbose_name='Аватар')
+    avatar = models.ImageField(upload_to=get_avatar_path, verbose_name='Аватар')
     about_me = models.TextField(max_length=500, null=True, blank=True, verbose_name='О себе')
     phone_number = models.CharField(max_length=20, null=True, blank=True, verbose_name='Номер телефона')
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, null=True, blank=True, verbose_name='Пол')
