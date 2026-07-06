@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
-
+{% block nav %}
+     <li class="nav-item">
+         <a class="nav-link"
+            href="{% url 'accounts:register' %}">
+             Регистрация
+         </a>
+     </li>
+{% endblock %}
 {% block content %}
         {% include 'partial/form.html' with form_title="Login" btn_txt="Войти" extra_classes="w-50 mx-auto" %}
 {% endblock %}

@@ -130,3 +130,5 @@ STATIC_URL = 'static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 MEDIA_URL = '/uploads/'
 AUTH_USER_MODEL = 'accounts.MyUser'
+LOGIN_REDIRECT_URL = 'insta:posts_list'
+LOGOUT_REDIRECT_URL = 'accounts:login'
