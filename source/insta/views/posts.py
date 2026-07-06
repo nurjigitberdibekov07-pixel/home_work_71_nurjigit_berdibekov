@@ -72,8 +72,8 @@ class PostDetailView(PermissionRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
 
         context['comments_form'] = CommentsForm()
-        context['comments'] = Comments.objects.filter(post=self.object).order_by('-created_at')
 
+        context['comments'] = Comments.objects.filter(post=self.object).order_by('created_at')
 
         return context
 

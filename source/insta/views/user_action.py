@@ -1,18 +1,50 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, get_object_or_404
+from django.views import View
+
+from insta.models.post import Posts
 
 
 User = get_user_model()
 
-def follow_user(request, pk):
-    user = get_object_or_404(User, pk=pk)
+# def follow_user(request, pk):
+#     user = get_object_or_404(User, pk=pk)
+#
+#     if request.user != user:
+#         if user in request.user.following.all():
+#             request.user.following.remove(user)
+#         else:
+#             request.user.following.add(user)
+#
+#     return redirect('accounts:detail', user.pk)
 
-    if request.user != user:
-        if user in request.user.following.all():
-            request.user.following.remove(user)
+class FollowUserView(LoginRequiredMixin, View):
+    def post(self, request, pk):
+        user = get_object_or_404(User, pk=pk)
+
+        if request.user != user:
+            if user in request.user.following.all():
+                request.user.following.remove(user)
+            else:
+                request.user.following.add(user)
+
+        next_url = request.POST.get('next') or request.GET.get('next')
+        if next_url:
+            return redirect(next_url)
+        return redirect('accounts:detail', pk=user.pk)
+
+
+class LikePostView(View):
+    def post(self, request, pk):
+        post = get_object_or_404(Posts, pk=pk)
+
+        if request.user not in post.likes.all():
+            post.likes.add(request.user)
         else:
-            request.user.following.add(user)
+            post.likes.remove(request.user)
 
-    return redirect('accounts:detail', user.pk)
-
-
+        next_url = request.POST.get('next') or request.GET.get('next')
+        if next_url:
+            return redirect(next_url)
+        return redirect('insta:posts_list')

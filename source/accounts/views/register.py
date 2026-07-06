@@ -23,5 +23,5 @@ class RegisterView(CreateView):
         if not next_url:
             next_url = self.request.POST.get('next')
         if not next_url:
-            next_url = reverse('accounts:detail')
+            next_url = reverse('accounts:detail', kwargs={'pk': self.request.user.pk})
         return next_url
