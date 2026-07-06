@@ -1,0 +1,102 @@
+[
+{
+  "model": "accounts.myuser",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$I7PLWVv0sHg7jmO50gc7lj$BFKHN+/wfzY/WUE3ol4+MZpqDMznu1BrG3ppUic5mDo=",
+    "last_login": "2026-07-06T10:42:14.197Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-07-01T09:27:35.874Z",
+    "avatar": "",
+    "about_me": null,
+    "phone_number": null,
+    "gender": null,
+    "groups": [],
+    "user_permissions": [],
+    "following": []
+  }
+},
+{
+  "model": "accounts.myuser",
+  "pk": 7,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$Swbw7egTOWjOeuPwHpmIHI$mkEyiT9ymcVbxpSNRn4lJ+PcI0ae2iXrpLnTfal6NCU=",
+    "last_login": "2026-07-06T10:01:32.455Z",
+    "is_superuser": false,
+    "username": "nurs",
+    "first_name": "Фрик",
+    "last_name": "",
+    "email": "nurs05@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-07-02T09:02:35Z",
+    "avatar": "avatars/nurs/Снимок_экрана_2026-06-23_в_02_bmZCMYX.19.47.png",
+    "about_me": "l;sdjkhbjfgdwkmlwqdsjcnhb",
+    "phone_number": "700 500 600",
+    "gender": null,
+    "groups": [],
+    "user_permissions": [],
+    "following": [
+      8,
+      9
+    ]
+  }
+},
+{
+  "model": "accounts.myuser",
+  "pk": 8,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$s8sxKmaHCC1bpf41xm8yiA$GQuNsaTVXR1ErWJMGYsmEPeq3pVkm6KnSPl0JdD7qrQ=",
+    "last_login": "2026-07-04T13:51:51.666Z",
+    "is_superuser": false,
+    "username": "emir",
+    "first_name": "emir",
+    "last_name": "",
+    "email": "emir02@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-07-02T16:42:55.435Z",
+    "avatar": "avatars/emir/zzpurple.jpeg",
+    "about_me": "",
+    "phone_number": null,
+    "gender": "male",
+    "groups": [],
+    "user_permissions": [],
+    "following": [
+      7
+    ]
+  }
+},
+{
+  "model": "accounts.myuser",
+  "pk": 9,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$TFV121DOSahlkLJBzwmdJU$sBkX12sji+oga3BDrMSkZuXO8RafSO9l8fJrCpDeJLY=",
+    "last_login": "2026-07-06T10:34:24.158Z",
+    "is_superuser": false,
+    "username": "nurik",
+    "first_name": "nurik",
+    "last_name": "",
+    "email": "nurik@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-07-06T08:27:10.195Z",
+    "avatar": "avatars/nurik/zzpurple.jpeg",
+    "about_me": "",
+    "phone_number": "0500601088",
+    "gender": "male",
+    "groups": [],
+    "user_permissions": [],
+    "following": [
+      7,
+      8
+    ]
+  }
+}
+]
