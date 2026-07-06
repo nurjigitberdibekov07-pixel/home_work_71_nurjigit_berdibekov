@@ -11,7 +11,6 @@ class Posts(models.Model):
     image = models.ImageField(null=True, blank=True, upload_to=get_image_path, verbose_name='Картина')
     description = models.TextField(max_length=500, null=True, blank=True, verbose_name='Описание')
     likes = models.ManyToManyField(get_user_model(), related_name='liked_posts', blank=True, verbose_name='Лайки')
-    comments = models.PositiveIntegerField(default=0, null=True, blank=True, verbose_name='Коментарии')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def likes_count(self):

@@ -48,3 +48,20 @@ textarea.form-control {
     font-family: 'Courier New', monospace;
     font-size: 50px;
 }
+
+.btn-bd-purple {
+    --bs-btn-font-weight: 600;
+    --bs-btn-color: white;
+    --bs-btn-bg: mediumpurple;
+    --bs-btn-border-color: mediumpurple;
+
+    --bs-btn-hover-color: white;
+    --bs-btn-hover-bg: #7a59c6;
+    --bs-btn-hover-border-color: #7a59c6;
+
+    --bs-btn-focus-shadow-rgb: 111, 66, 193;
+
+    --bs-btn-active-color: white;
+    --bs-btn-active-bg: #512da8;
+    --bs-btn-active-border-color: #512da8;
+}

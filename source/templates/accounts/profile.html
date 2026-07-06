@@ -12,26 +12,22 @@
                      alt="avatar">
             {% endif %}
         </div>
-
-
         <div class="col-8 px-5">
             <div class="d-flex align-items-center mb-4 px-5">
                 <h3 class="me-4 username">
                     {{ user_object.username }}
                 </h3>
-
-                {% if request.user.pk == user_object.pk  %}
-                    <a href="#" class="btn btn-light border">
-                        Edit profile
-                    </a>
-                {% else %}
-                    <a href="{% url 'insta:follow_user' user_object.pk %}" class="btn btn-light border">
-                        {% if user_object in request.user.following.all %}
-                            Unfollow
-                        {% else %}
-                            Follow
-                        {% endif %}
-                    </a>
+                {% if request.user.pk !=  user_object.pk%}
+                    <form action="{% url 'insta:follow_user' user_object.pk %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-bd-purple">
+                            {% if user_object in request.user.following.all %}
+                                Unfollow
+                            {% else %}
+                                Follow
+                            {% endif %}
+                        </button>
+                    </form>
                 {% endif %}
             </div>
             <div class="d-flex gap-5 mb-4 px-5">
@@ -47,7 +43,7 @@
             </div>
             <div class="px-5">
                 <div class="fw-bold">
-                    {{ user_object.username }}
+                    {{ user_object.first_name }}
                 </div>
                 {% if user_object.phone_number %}
                     <div>
@@ -67,7 +63,7 @@
     {% if request.user.pk == user_object.pk  %}
         <div class="action_buttons d-flex justify-content-center mt-5 px-5">
             <div>
-                <a href="{% url 'insta:post_create' user_object.pk %}" class="btn btn-outline-secondary px-5">Add post</a>
+                <a href="{% url 'insta:post_create' user_object.pk %}" class="btn btn-bd-purple px-5">Add post</a>
             </div>
         </div>
     {% endif %}
@@ -78,7 +74,23 @@
             <div class="card h-100 mb-3">
               <img src="{{ post.image.url }}" class="card-img-top" alt="post_img" style="height: 190px; object-fit: cover;">
               <div class="card-body">
+                <div class="d-flex">
+                    <form action="{% url 'insta:like' post.pk %}?next={{ request.get_full_path }}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-link p-0">
+                            {% if request.user in post.likes.all %}
+                                <i class="bi bi-heart-fill" style="font-size: 1.5rem; color: mediumpurple;"></i>
+                            {% else %}
+                                <i class="bi bi-heart" style="font-size: 1.5rem; color: mediumpurple;"></i>
+                            {% endif %}
+                        </button>
+                    </form>
+                    <a href="{% url 'insta:detail' post.pk %}" class="mx-2"><i class="bi bi-chat" style="font-size: 1.5rem; color: mediumpurple;"></i></a>
+                </div>
+                <p class="text-body-secondary mb-1" style="font-size: 0.8rem;">{{ post.likes.count }} likes</p>
+                <p class="text-body-secondary" style="font-size: 0.8rem;">Date {{ post.created_at| date:'Y-m-d' }}</p>
                 <p class="card-text">{{ post.description }}</p>
+
               </div>
             </div>
         </div>

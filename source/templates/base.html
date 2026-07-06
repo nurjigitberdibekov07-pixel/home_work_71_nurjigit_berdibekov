@@ -31,11 +31,11 @@
                 {% block nav %}
                 {% endblock %}
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Instagram</a>
+                    <a class="nav-link active" href="{% url 'insta:posts_list' %}">Instagram</a>
                 </li>
                 {% if request.user.is_authenticated %}
                     <li class="nav-item">
-                        <form action="{% url 'accounts:logout' %}?next={{ request.get_full_path }}" method="post">
+                        <form action="{% url 'accounts:logout' %}?next=/accounts/login/" method="post">
                             {% csrf_token %}
                             <button type="submit"
                                     class="nav-link btn btn-link">
@@ -46,13 +46,13 @@
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link"
-                           href="{% url 'accounts:login' %}?next={{ request.get_full_path }}">
+                           href="{% url 'accounts:login' %}">
                             Войти
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"
-                           href="{% url 'accounts:register' %}?next={{ request.get_full_path }}">
+                           href="{% url 'accounts:register' %}">
                             Регистрация
                         </a>
                     </li>
@@ -61,7 +61,7 @@
 
             <form class="d-flex mx-auto" role="search" action="{% url 'insta:search_results' %}" method="GET" style="width: 350px;">
                 {{ search_form }}
-                <button class="btn btn-outline-success"
+                <button class="btn btn-bd-purple"
                         type="submit" style="margin-left: 10px;">
                     Search
                 </button>

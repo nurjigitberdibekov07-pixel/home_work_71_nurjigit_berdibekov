@@ -7,27 +7,38 @@
             <img src="{{ post.author.avatar.url }}"
                      class="rounded-circle profile-avatar-small"
                      alt="avatar">
-            <span class="fs-5 fw-Semibold px-3">
+            <a href="{% url 'accounts:detail' post.author.pk %}" class="fs-5 fw-Semibold px-3 text-dark text-decoration-none">
                 {{ post.author.username }}
-            </span>
+            </a>
         </div>
             <div style="height: 600px; overflow: hidden;">
                 <img src="{{ post.image.url }}" class="w-100 h-100" alt="img" style="object-fit: cover;">
             </div>
             <div class="card-body">
-                <a href="#"><i class="bi bi-heart" style="font-size: 2rem; color: cornflowerblue;"></i></a>
-                <a href="{% url 'insta:detail' post.pk %}" class="mx-2"><i class="bi bi-chat" style="font-size: 2rem; color: cornflowerblue;"></i></a>
-                <p>{{ post.likes.count }} отметок нравиться</p>
+                <div class="d-flex">
+                    <form action="{% url 'insta:like' post.pk %}?next={{ request.get_full_path }}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-link p-0">
+                            {% if request.user in post.likes.all %}
+                                <i class="bi bi-heart-fill" style="font-size: 2rem; color: mediumpurple;"></i>
+                            {% else %}
+                                <i class="bi bi-heart" style="font-size: 2rem; color: mediumpurple;"></i>
+                            {% endif %}
+                        </button>
+                    </form>
+                    <a href="{% url 'insta:detail' post.pk %}?next={{ request.get_full_path }}" class="mx-2"><i class="bi bi-chat" style="font-size: 2rem; color: mediumpurple;"></i></a>
+                </div>
+                <p>{{ post.likes.count }} likes</p>
                 <p class="card-title font-monospace mb-0"><span class="fs-5 fw-Semibold">
                                                         {{ post.author.username }}
                                                     </span> {{ post.description }}</p>
-                <p class="text-body-secondary fs-6">Дата публикации {{ post.created_at| date:'Y-m-d' }}</p>
+                <p class="text-body-secondary fs-6">Date {{ post.created_at| date:'Y-m-d' }}</p>
             </div>
             <div class="card-body" style="position: relative;">
                 <form action="{% url 'insta:comment' post.pk %}?next={{ request.get_full_path }}" method="POST">
                     {% csrf_token %}
                     {{ comments_form }}
-                    <button type="submit" style="position: absolute; right: 30px; top: 45%; transform: translateY(-50%);" class="btn btn-link text-decoration-none">
+                    <button type="submit" style="position: absolute; right: 30px; top: 45%; transform: translateY(-50%); color: mediumpurple;" class="btn btn-link text-decoration-none">
                         Send
                     </button>
                 </form>
