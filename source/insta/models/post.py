@@ -8,7 +8,7 @@ def get_image_path(instance, filename):
 
 class Posts(models.Model):
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='posts', verbose_name='Автор')
-    image = models.ImageField(null=True, blank=True, upload_to=get_image_path, verbose_name='Картина')
+    image = models.ImageField(null=False, blank=False, upload_to=get_image_path, verbose_name='Картина')
     description = models.TextField(max_length=500, null=True, blank=True, verbose_name='Описание')
     likes = models.ManyToManyField(get_user_model(), related_name='liked_posts', blank=True, verbose_name='Лайки')
     created_at = models.DateTimeField(auto_now_add=True)

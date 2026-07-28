@@ -5,8 +5,7 @@ from django.db.models import Q
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, DetailView
 
-from forms import SimpleSearchForm
-from insta.forms import PostForm, CommentsForm
+from insta.forms import PostForm, CommentsForm, SimpleSearchForm
 from insta.models import Posts, Comments
 
 

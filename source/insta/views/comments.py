@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, get_object_or_404
 
 from insta.forms import CommentsForm
-from insta.models import Posts, Comments
+from insta.models import Posts
 
 
 def comment_view(request, pk):
