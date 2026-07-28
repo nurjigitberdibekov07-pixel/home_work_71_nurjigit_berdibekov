@@ -2,14 +2,31 @@ from multiprocessing import context
 
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.db.models import Q
+from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, DetailView
+from rest_framework import viewsets
 
 from insta.forms import PostForm, CommentsForm, SimpleSearchForm
 from insta.models import Posts, Comments
+from insta.serializers.posts import PostsSerializer
 
 
 # Create your views here.
+
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = Posts.objects.all()
+    serializer_class = PostsSerializer
+
+    def get_queryset(self):
+        if self.request.user.is_authenticated:
+            return Posts.objects.filter(Q(author__in=self.request.user.following.all())).order_by('-created_at')
+        return Posts.objects.all()
+
+    def list(self, request, *args, **kwargs):
+        template_name = 'insta/posts_list.html'
+        context = {"posts": self.get_queryset()}
+        return render(request, template_name, context)
 
 class PostCreateView(PermissionRequiredMixin, CreateView):
     model = Posts
