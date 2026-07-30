@@ -1,0 +1,11 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block content %}
+    {% url 'insta:posts-detail' post.pk as post_url %}
+    {% include 'partial/form.html' with action=post_url form_title="Update post" btn_txt="Save" extra_classes="w-50 mx-auto" %}
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/post_update.js' %}"></script>
+{% endblock %}

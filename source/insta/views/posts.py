@@ -66,13 +66,12 @@ class PostViewSet(viewsets.ModelViewSet):
 
         return Response({'form': form}, template_name='insta/post_create.html')
 
-    def get_success_url(self):
-        next_url = self.request.GET.get('next')
-        if not next_url:
-            next_url = self.request.POST.get('next')
-        if not next_url:
-            next_url = reverse('accounts:detail', kwargs={'pk': self.request.user.pk})
-        return next_url
+    @action(detail=True, methods=['get'], url_path='post_up')
+    def post_up(self, request, *args, **kwargs):
+        post = self.get_object()
+        form = PostForm(instance=post)
+        context = {"post": post, "form": form}
+        return Response(context, template_name='insta/post_update.html')
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -83,17 +82,22 @@ class PostViewSet(viewsets.ModelViewSet):
         self.perform_create(serializer)
         return redirect('insta:posts-list')
 
-    def has_permission(self):
-        return self.request.user.is_authenticated
+    def partial_update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        # self.perform_update(instance)
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['comments_form'] = CommentsForm()
-        return context
+        if not serializer.is_valid():
+            if request.accepted_renderer.format == 'json':
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            form = PostForm(request.data, request.FILES, instance=instance)
+            return Response({'form': form, 'post': instance}, status=status.HTTP_400_BAD_REQUEST)
 
-    def get_queryset(self):
-        return Posts.objects.filter(Q(author__in=self.request.user.following.all())).order_by('-created_at')
+        self.perform_update(serializer)
 
+        if request.accepted_renderer.format == 'json':
+            return Response(serializer.data)
+        return redirect('insta:posts-detail', pk=instance.pk)
 
 class PostDetailView(PermissionRequiredMixin, DetailView):
     model = Posts
