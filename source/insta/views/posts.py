@@ -1,13 +1,13 @@
-from multiprocessing import context
-
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.db.models import Q
-from django.shortcuts import render
-from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView, ListView, DetailView
-from rest_framework import viewsets
+from django.shortcuts import redirect
 
-from insta.forms import PostForm, CommentsForm, SimpleSearchForm
+from rest_framework import viewsets, status
+from rest_framework.decorators import action
+from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
+from rest_framework.response import Response
+from rest_framework.exceptions import PermissionDenied
+
+from insta.forms import PostForm, CommentsForm
 from insta.models import Posts, Comments
 from insta.serializers.posts import PostsSerializer
 
@@ -17,29 +17,48 @@ from insta.serializers.posts import PostsSerializer
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Posts.objects.all()
     serializer_class = PostsSerializer
+    renderer_classes = [TemplateHTMLRenderer, JSONRenderer]
+    template_name = 'insta/post_detail.html'
 
     def get_queryset(self):
         if self.request.user.is_authenticated:
-            return Posts.objects.filter(Q(author__in=self.request.user.following.all())).order_by('-created_at')
+            return Posts.objects.filter(Q(author__in=self.request.user.following.all()) | Q(author=self.request.user)).order_by('-created_at')
         return Posts.objects.all()
 
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
+    def get_template_names(self):
+        if self.action == 'list':
+            return ['insta/posts_list.html']
+        elif self.action == 'retrieve':
+            return ['insta/post_detail.html']
+        elif self.action == 'create':
+            return ['insta/post_create.html']
+        elif self.action in ['update', 'partial_update']:
+            return ['insta/post_update.html']
+        elif self.action == 'destroy':
+            return ['insta/post_delete.html']
+
     def list(self, request, *args, **kwargs):
-        template_name = 'insta/posts_list.html'
-        context = {"posts": self.get_queryset()}
-        return render(request, template_name, context)
+        posts = self.get_queryset()
+        context = {"posts": posts, "comments_form": CommentsForm()}
+        return Response(context)
 
-class PostCreateView(PermissionRequiredMixin, CreateView):
-    model = Posts
-    form_class = PostForm
-    template_name = 'insta/post_create.html'
-    success_url = reverse_lazy('accounts:register')
+    def retrieve(self, request, *args, **kwargs):
+        post = self.get_queryset().get(pk=self.kwargs['pk'])
+        serializer = self.get_serializer(post)
 
-    def has_permission(self):
-        return self.request.user.pk == self.kwargs['pk']
+        if request.accepted_renderer.format == 'json':
+            return Response(serializer.data)
 
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
+        context = {
+            "post": post,
+            "serializer": serializer,
+            "comments_form": CommentsForm(),
+            "comments": Comments.objects.filter(post=post).order_by('-created_at')
+        }
+        return Response(context, status=status.HTTP_200_OK)
 
     def dispatch(self, request, *args, **kwargs):
         self.form = SimpleSearchForm(self.request.GET )

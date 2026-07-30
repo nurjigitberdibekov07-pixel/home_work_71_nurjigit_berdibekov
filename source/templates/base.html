@@ -16,7 +16,7 @@
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid" style="margin-inline: 30px">
-        <a class="navbar-brand" href="{% url 'insta:posts_list' %}">
+        <a class="navbar-brand" href="{% url 'insta:posts-list' %}">
             <i class="bi bi-instagram"></i>
         </a>
         <button class="navbar-toggler"
@@ -29,7 +29,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'insta:posts_list' %}">Instagram</a>
+                    <a class="nav-link active" href="{% url 'insta:posts-list' %}">Instagram</a>
                 </li>
                 {% if request.user.is_authenticated %}
                     <li class="nav-item">
@@ -73,7 +73,8 @@
     {% block content %}
     {% endblock %}
 </div>
-
+{% block scripts %}
+{% endblock %}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>

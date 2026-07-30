@@ -85,7 +85,7 @@
                             {% endif %}
                         </button>
                     </form>
-                    <a href="{% url 'insta:detail' post.pk %}" class="mx-2"><i class="bi bi-chat" style="font-size: 1.5rem; color: mediumpurple;"></i></a>
+                    <a href="{% url "insta:posts-detail" post.pk %}" class="mx-2"><i class="bi bi-chat" style="font-size: 1.5rem; color: mediumpurple;"></i></a>
                 </div>
                 <p class="text-body-secondary mb-1" style="font-size: 0.8rem;">{{ post.likes.count }} likes</p>
                 <p class="text-body-secondary" style="font-size: 0.8rem;">Date {{ post.created_at| date:'Y-m-d' }}</p>
