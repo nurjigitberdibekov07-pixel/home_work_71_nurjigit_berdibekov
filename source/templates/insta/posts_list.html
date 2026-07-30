@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block content %}
 <div class="posts p-5">
     {% for post in posts %}
@@ -50,4 +52,8 @@
         </div>
     {% endfor %}
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/post_like.js' %}"></script>
 {% endblock %}

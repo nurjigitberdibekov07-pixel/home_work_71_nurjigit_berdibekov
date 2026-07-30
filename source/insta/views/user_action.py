@@ -24,16 +24,17 @@ class FollowUserView(LoginRequiredMixin, View):
         return redirect('accounts:detail', pk=user.pk)
 
 
-class LikePostView(View):
-    def post(self, request, pk):
-        post = get_object_or_404(Posts, pk=pk)
+class LikePostView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, *args, **kwargs):
+        post = get_object_or_404(Posts, pk=kwargs['pk'])
 
         if request.user not in post.likes.all():
             post.likes.add(request.user)
+            liked = True
         else:
             post.likes.remove(request.user)
+            liked = False
 
-        next_url = request.POST.get('next') or request.GET.get('next')
-        if next_url:
-            return redirect(next_url)
-        return redirect('insta:posts_list')
+        return JsonResponse({"like": liked, "count": post.likes_count()})
