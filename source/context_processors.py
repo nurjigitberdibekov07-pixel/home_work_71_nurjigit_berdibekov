@@ -1,4 +1,4 @@
-from forms import SimpleSearchForm
+from insta.forms import SimpleSearchForm
 
 def search_form(request):
     return {

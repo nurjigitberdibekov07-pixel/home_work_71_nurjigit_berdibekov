@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
-
-
+{% load static %}
 
 {% block content %}
 <div class="container mt-5">
@@ -63,7 +62,7 @@
     {% if request.user.pk == user_object.pk  %}
         <div class="action_buttons d-flex justify-content-center mt-5 px-5">
             <div>
-                <a href="{% url 'insta:post_create' user_object.pk %}" class="btn btn-bd-purple px-5">Add post</a>
+                <a href="{% url 'insta:posts-new' %}" class="btn btn-bd-purple px-5">Add post</a>
             </div>
         </div>
     {% endif %}
@@ -75,19 +74,21 @@
               <img src="{{ post.image.url }}" class="card-img-top" alt="post_img" style="height: 190px; object-fit: cover;">
               <div class="card-body">
                 <div class="d-flex">
-                    <form action="{% url 'insta:like' post.pk %}?next={{ request.get_full_path }}" method="post">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-link p-0">
-                            {% if request.user in post.likes.all %}
-                                <i class="bi bi-heart-fill" style="font-size: 1.5rem; color: mediumpurple;"></i>
-                            {% else %}
-                                <i class="bi bi-heart" style="font-size: 1.5rem; color: mediumpurple;"></i>
-                            {% endif %}
-                        </button>
-                    </form>
-                    <a href="{% url 'insta:detail' post.pk %}" class="mx-2"><i class="bi bi-chat" style="font-size: 1.5rem; color: mediumpurple;"></i></a>
+                    <div class="d-flex align-items-center">
+
+                    <a href="{% url "insta:like" post.pk %}" data-key="likes" data-likes-id="{{ post.pk }}" data-profile="true">
+                        {% if request.user in post.likes.all %}
+                            <i class="bi bi-heart-fill" style="font-size: 1.5rem; color: mediumpurple;"></i>
+                        {% else %}
+                            <i class="bi bi-heart" style="font-size: 1.5rem; color: mediumpurple;"></i>
+                        {% endif %}
+                    </a>
+
+                    <a href="{% url "insta:posts-detail" post.pk %}" class="mx-2"><i class="bi bi-chat" style="font-size: 1.5rem; color: mediumpurple;"></i></a>
+                    </div>
+
                 </div>
-                <p class="text-body-secondary mb-1" style="font-size: 0.8rem;">{{ post.likes.count }} likes</p>
+                <p class="text-body-secondary mb-1" id="count-{{ post.pk }}" style="font-size: 0.8rem;">{{ post.likes.count }} likes</p>
                 <p class="text-body-secondary" style="font-size: 0.8rem;">Date {{ post.created_at| date:'Y-m-d' }}</p>
                 <p class="card-text">{{ post.description }}</p>
 
@@ -96,5 +97,7 @@
         </div>
     {% endfor %}
 </div>
-
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/post_like.js' %}"></script>
 {% endblock %}

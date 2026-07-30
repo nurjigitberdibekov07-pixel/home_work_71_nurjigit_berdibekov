@@ -42,6 +42,11 @@ INSTALLED_APPS = [
 
     'insta',
     'accounts',
+
+    'django_bootstrap5',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -127,12 +132,26 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PARSER_CLASSES': [
+            'rest_framework.parsers.JSONParser',
+            'rest_framework.parsers.MultiPartParser',
+            'rest_framework.parsers.FormParser',
+        ],
+}
+
 AUTHENTICATION_BACKENDS = [
     'accounts.backends.EmailOrUsernameBackend',
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 MEDIA_URL = '/uploads/'
+
 AUTH_USER_MODEL = 'accounts.MyUser'
-LOGIN_REDIRECT_URL = 'insta:posts_list'
+
+LOGIN_REDIRECT_URL = 'insta:posts-list'
 LOGOUT_REDIRECT_URL = 'accounts:login'

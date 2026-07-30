@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.utils.http import urlencode
 from django.views.generic import ListView
 
-from forms import SimpleSearchForm
+from insta.forms import SimpleSearchForm
 
 User = get_user_model()
 

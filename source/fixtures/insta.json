@@ -1,197 +1,211 @@
 [
 {
-  "model": "insta.comments",
-  "pk": 12,
-  "fields": {
-    "post": 6,
-    "text": "yes yes",
-    "author": 8,
-    "created_at": "2026-07-04T13:52:29.420Z"
-  }
+    "model": "insta.comments",
+    "pk": 13,
+    "fields": {
+        "post": 6,
+        "text": "wow",
+        "author": 9,
+        "created_at": "2026-07-06T09:57:45.610Z"
+    }
 },
 {
-  "model": "insta.comments",
-  "pk": 13,
-  "fields": {
-    "post": 6,
-    "text": "wow",
-    "author": 9,
-    "created_at": "2026-07-06T09:57:45.610Z"
-  }
+    "model": "insta.comments",
+    "pk": 14,
+    "fields": {
+        "post": 4,
+        "text": "comment_1",
+        "author": 9,
+        "created_at": "2026-07-06T09:58:02.177Z"
+    }
 },
 {
-  "model": "insta.comments",
-  "pk": 14,
-  "fields": {
-    "post": 4,
-    "text": "comment_1",
-    "author": 9,
-    "created_at": "2026-07-06T09:58:02.177Z"
-  }
+    "model": "insta.comments",
+    "pk": 15,
+    "fields": {
+        "post": 3,
+        "text": "comment_2",
+        "author": 9,
+        "created_at": "2026-07-06T09:58:09.210Z"
+    }
 },
 {
-  "model": "insta.comments",
-  "pk": 15,
-  "fields": {
-    "post": 3,
-    "text": "comment_2",
-    "author": 9,
-    "created_at": "2026-07-06T09:58:09.210Z"
-  }
+    "model": "insta.comments",
+    "pk": 16,
+    "fields": {
+        "post": 2,
+        "text": "comment_3",
+        "author": 9,
+        "created_at": "2026-07-06T09:58:17.046Z"
+    }
 },
 {
-  "model": "insta.comments",
-  "pk": 16,
-  "fields": {
-    "post": 2,
-    "text": "comment_3",
-    "author": 9,
-    "created_at": "2026-07-06T09:58:17.046Z"
-  }
+    "model": "insta.comments",
+    "pk": 18,
+    "fields": {
+        "post": 6,
+        "text": "comment_0",
+        "author": 7,
+        "created_at": "2026-07-06T10:09:59.152Z"
+    }
 },
 {
-  "model": "insta.comments",
-  "pk": 17,
-  "fields": {
-    "post": 7,
-    "text": "Coomment",
-    "author": 7,
-    "created_at": "2026-07-06T10:09:25.556Z"
-  }
+    "model": "insta.comments",
+    "pk": 19,
+    "fields": {
+        "post": 8,
+        "text": "coment_01",
+        "author": 7,
+        "created_at": "2026-07-06T10:11:29.159Z"
+    }
 },
 {
-  "model": "insta.comments",
-  "pk": 18,
-  "fields": {
-    "post": 6,
-    "text": "comment_0",
-    "author": 7,
-    "created_at": "2026-07-06T10:09:59.152Z"
-  }
+    "model": "insta.comments",
+    "pk": 23,
+    "fields": {
+        "post": 2,
+        "text": "gyfcftuygbuhn",
+        "author": 8,
+        "created_at": "2026-07-12T18:00:42.105Z"
+    }
 },
 {
-  "model": "insta.comments",
-  "pk": 19,
-  "fields": {
-    "post": 8,
-    "text": "coment_01",
-    "author": 7,
-    "created_at": "2026-07-06T10:11:29.159Z"
-  }
+    "model": "insta.comments",
+    "pk": 24,
+    "fields": {
+        "post": 8,
+        "text": "yftcdrftvygbu",
+        "author": 8,
+        "created_at": "2026-07-12T18:01:30.166Z"
+    }
 },
 {
-  "model": "insta.posts",
-  "pk": 1,
-  "fields": {
-    "author": 7,
-    "image": "posts/nurs/Снимок_экрана_2026-06-26_в_06.14.31.png",
-    "description": "pycharm",
-    "created_at": "2026-07-02T10:49:42.030Z",
-    "likes": [
-      8,
-      7
-    ]
-  }
+    "model": "insta.comments",
+    "pk": 25,
+    "fields": {
+        "post": 3,
+        "text": "ettnhyjn",
+        "author": 9,
+        "created_at": "2026-07-14T14:45:35.665Z"
+    }
 },
 {
-  "model": "insta.posts",
-  "pk": 2,
-  "fields": {
-    "author": 7,
-    "image": "posts/nurs/genshin.jpeg",
-    "description": ";lsaldjnckfdh",
-    "created_at": "2026-07-02T14:26:42.032Z",
-    "likes": [
-      9,
-      8,
-      7
-    ]
-  }
+    "model": "insta.comments",
+    "pk": 27,
+    "fields": {
+        "post": 8,
+        "text": "2222",
+        "author": 1,
+        "created_at": "2026-07-28T14:59:26.842Z"
+    }
 },
 {
-  "model": "insta.posts",
-  "pk": 3,
-  "fields": {
-    "author": 7,
-    "image": "posts/nurs/honkai_1.jpeg",
-    "description": "anime tyan",
-    "created_at": "2026-07-02T14:34:57.802Z",
-    "likes": [
-      9,
-      8,
-      7
-    ]
-  }
+    "model": "insta.comments",
+    "pk": 28,
+    "fields": {
+        "post": 4,
+        "text": "comment_3",
+        "author": 1,
+        "created_at": "2026-07-30T11:41:33.556Z"
+    }
 },
 {
-  "model": "insta.posts",
-  "pk": 4,
-  "fields": {
-    "author": 7,
-    "image": "posts/nurs/Wallpaper_Alchemy_-_Promeia_Zenless_Zone_Zero_4K_Wallpaper.jpeg",
-    "description": "anime",
-    "created_at": "2026-07-02T14:38:39.641Z",
-    "likes": [
-      9,
-      8,
-      7
-    ]
-  }
+    "model": "insta.comments",
+    "pk": 29,
+    "fields": {
+        "post": 5,
+        "text": "comment",
+        "author": 7,
+        "created_at": "2026-07-30T12:09:44.479Z"
+    }
 },
 {
-  "model": "insta.posts",
-  "pk": 5,
-  "fields": {
-    "author": 8,
-    "image": "posts/emir/estec.jpeg",
-    "description": "purple",
-    "created_at": "2026-07-02T16:48:12.457Z",
-    "likes": [
-      9,
-      7
-    ]
-  }
+    "model": "insta.posts",
+    "pk": 2,
+    "fields": {
+        "author": 7,
+        "image": "posts/nurs/genshin.jpeg",
+        "description": ";lsaldjnckfdh",
+        "created_at": "2026-07-02T14:26:42.032Z",
+        "likes": [
+            7,
+            8,
+            9
+        ]
+    }
 },
 {
-  "model": "insta.posts",
-  "pk": 6,
-  "fields": {
-    "author": 8,
-    "image": "posts/emir/zzz.jpeg",
-    "description": "post_0",
-    "created_at": "2026-07-04T13:52:16.527Z",
-    "likes": [
-      8,
-      9,
-      7
-    ]
-  }
+    "model": "insta.posts",
+    "pk": 3,
+    "fields": {
+        "author": 7,
+        "image": "posts/nurs/honkai_1.jpeg",
+        "description": "anime tyan",
+        "created_at": "2026-07-02T14:34:57.802Z",
+        "likes": [
+            7,
+            8,
+            9
+        ]
+    }
 },
 {
-  "model": "insta.posts",
-  "pk": 7,
-  "fields": {
-    "author": 9,
-    "image": "posts/nurik/silver.jpeg",
-    "description": "silver wolf",
-    "created_at": "2026-07-06T09:54:23.841Z",
-    "likes": [
-      9,
-      7
-    ]
-  }
+    "model": "insta.posts",
+    "pk": 4,
+    "fields": {
+        "author": 7,
+        "image": "posts/nurs/Wallpaper_Alchemy_-_Promeia_Zenless_Zone_Zero_4K_Wallpaper.jpeg",
+        "description": "anime",
+        "created_at": "2026-07-02T14:38:39.641Z",
+        "likes": [
+            7,
+            8,
+            9
+        ]
+    }
 },
 {
-  "model": "insta.posts",
-  "pk": 8,
-  "fields": {
-    "author": 9,
-    "image": "posts/nurik/saber.jpeg",
-    "description": "saber",
-    "created_at": "2026-07-06T09:55:51.649Z",
-    "likes": [
-      7
-    ]
-  }
+    "model": "insta.posts",
+    "pk": 5,
+    "fields": {
+        "author": 8,
+        "image": "posts/emir/estec.jpeg",
+        "description": "purple",
+        "created_at": "2026-07-02T16:48:12.457Z",
+        "likes": [
+            7,
+            9
+        ]
+    }
+},
+{
+    "model": "insta.posts",
+    "pk": 6,
+    "fields": {
+        "author": 8,
+        "image": "posts/emir/zzz.jpeg",
+        "description": "post_0",
+        "created_at": "2026-07-04T13:52:16.527Z",
+        "likes": [
+            7,
+            8,
+            9
+        ]
+    }
+},
+{
+    "model": "insta.posts",
+    "pk": 8,
+    "fields": {
+        "author": 9,
+        "image": "posts/nurik/saber.jpeg",
+        "description": "saber111",
+        "created_at": "2026-07-06T09:55:51.649Z",
+        "likes": [
+            7,
+            8,
+            9
+        ]
+    }
 }
 ]
