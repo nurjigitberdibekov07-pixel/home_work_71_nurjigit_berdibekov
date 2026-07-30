@@ -94,7 +94,7 @@
 
             <div class="modal-footer">
                 <form method="post"
-                      action="#">
+                      action="{% url "insta:delete_comment" comment.pk %}">
                     {% csrf_token %}
 
                     <button type="button"

@@ -1,7 +1,10 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.views import View
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
 
 from insta.models.post import Posts
 
