@@ -4,33 +4,38 @@
     <div class="card mb-4" style="max-width: 1200px; margin: 0 auto;">
         <div class="card-header p-3 d-flex justify-content-between align-items-center">
             <div>
-                <img src="{{ post.author.avatar.url }}"
-                         class="rounded-circle profile-avatar-small"
-                         alt="avatar">
+                {% if post.author.avatar %}
+                    <img src="{{ post.author.avatar.url }}"
+                             class="rounded-circle profile-avatar-small"
+                             alt="avatar">
+                {% endif %}
                 <a href="{% url 'accounts:detail' post.author.pk %}" class="fs-5 fw-Semibold px-3 text-dark text-decoration-none">
                     {{ post.author.username }}
                 </a>
             </div>
             <div>
+                {% if request.user.is_authenticated %}
                 <a href="{% url "insta:posts-post-up" post.pk %}" class="btn">update</a>
                 <a href="{% url "insta:posts-delete-confirm" post.pk %}" class="btn">delete</a>
+                {% endif %}
             </div>
         </div>
             <div style="height: 600px; overflow: hidden;">
                 <img src="{{ post.image.url }}" class="w-100 h-100" alt="img" style="object-fit: cover;">
             </div>
             <div class="card-body">
-                <form action="{% url 'insta:like' post.pk %}?next={{ request.get_full_path }}" method="post">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-link p-0">
+                <div class="d-flex">
+                    {% if request.user.is_authenticated %}
+                        <a href="{% url "insta:like" post.pk %}" data-key="likes" data-likes-id="{{ post.pk }}">
                             {% if request.user in post.likes.all %}
                                 <i class="bi bi-heart-fill" style="font-size: 2rem; color: mediumpurple;"></i>
                             {% else %}
                                 <i class="bi bi-heart" style="font-size: 2rem; color: mediumpurple;"></i>
                             {% endif %}
-                        </button>
-                    </form>
-                <p>{{ post.likes.count }} likes</p>
+                        </a>
+                    {% endif %}
+                </div>
+                <p id="count-{{ post.pk }}">{{ post.likes.count }} likes</p>
                 <p>{{ post.Comments.count }} comments</p>
                 <p class="card-title font-monospace mb-0"><span class="fs-5 fw-Semibold">
                                                         {{ post.author.username }}
@@ -38,14 +43,15 @@
                 <p class="text-body-secondary fs-6">Date {{ post.created_at| date:'Y-m-d' }}</p>
             </div>
             <div class="card-body" style="position: relative;">
-
-                <form action="{% url 'insta:comment' post.pk %}?next={{ request.get_full_path }}" method="POST">
-                    {% csrf_token %}
-                    {{ comments_form }}
-                    <button type="submit" style="position: absolute; right: 30px; top: 45%; transform: translateY(-50%); color: mediumpurple;" class="btn btn-link text-decoration-none">
-                        Send
-                    </button>
-                </form>
+                {% if request.user.is_authenticated %}
+                    <form action="{% url 'insta:comment' post.pk %}?next={{ request.get_full_path }}" method="POST">
+                        {% csrf_token %}
+                        {{ comments_form }}
+                        <button type="submit" style="position: absolute; right: 30px; top: 45%; transform: translateY(-50%); color: mediumpurple;" class="btn btn-link text-decoration-none">
+                            Send
+                        </button>
+                    </form>
+                {% endif %}
             </div>
     </div>
 

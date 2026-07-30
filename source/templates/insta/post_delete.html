@@ -2,13 +2,31 @@
 {% load static %}
 
 {% block content %}
-    <form id="delete-form" action="{% url 'insta:posts-detail' post.pk %}" class="w-50 mx-auto">
-        <p>Удалить пост?</p>
-        <button type="submit" class="btn btn-danger">Удалить</button>
-    </form>
-    <div id="result"></div>
+<div class="card shadow-sm border-0 rounded-4 my-5 mx-auto" style="max-width: 500px;">
+    <div class="card-header text-center bg-white py-3">
+        <h4 class="mb-0">Удаление поста</h4>
+    </div>
+
+    <div class="card-body">
+        <form id="delete-form" action="{% url 'insta:posts-detail' post.pk %}" class="text-center">
+            <p class="fs-5 mb-4">
+                Вы действительно хотите удалить этот пост?
+            </p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="{% url 'insta:posts-detail' post.pk %}" class="btn btn-outline-secondary">
+                    Отмена
+                </a>
+                <button type="submit" class="btn btn-danger px-4">
+                    Удалить
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="result" class="mt-3 text-center"></div>
 {% endblock %}
 
 {% block scripts %}
-    <script src="{% static 'js/post_delete.js' %}"></script>
+<script src="{% static 'js/post_delete.js' %}"></script>
 {% endblock %}

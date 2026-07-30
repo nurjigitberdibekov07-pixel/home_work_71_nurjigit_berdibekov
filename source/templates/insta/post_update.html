@@ -4,6 +4,7 @@
 {% block content %}
     {% url 'insta:posts-detail' post.pk as post_url %}
     {% include 'partial/form.html' with action=post_url form_title="Update post" btn_txt="Save" extra_classes="w-50 mx-auto" %}
+<div id="result" class="mt-3 text-center"></div>
 {% endblock %}
 
 {% block scripts %}

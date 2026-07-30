@@ -36,7 +36,7 @@ async function makeRequest(url, method = 'GET', data = null, isFormData = false)
     let response = await fetch(url, options);
 
     if (response.status === 204) {
-        return { ok: true };
+        return {};
     }
 
     if (response.ok) {
@@ -59,7 +59,8 @@ async function onClick(event) {
     let resultDiv = document.getElementById('result');
 
     if (result && result.detail) {
-        resultDiv.innerText = 'Ошибка: ' + result.detail;
+        let errorText = 'У вас нет прав для удаления этого поста';
+        resultDiv.innerText = 'Ошибка: ' + errorText;
         resultDiv.style.color = 'red';
     } else {
         window.location.href = `/posts/`;

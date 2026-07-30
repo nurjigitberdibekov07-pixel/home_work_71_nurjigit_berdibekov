@@ -3,6 +3,7 @@ from django.shortcuts import redirect
 
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
 from rest_framework.response import Response
 from rest_framework.exceptions import PermissionDenied
@@ -10,7 +11,7 @@ from rest_framework.exceptions import PermissionDenied
 from insta.forms import PostForm, CommentsForm
 from insta.models import Posts, Comments
 from insta.serializers.posts import PostsSerializer
-
+from insta.permissions import IsAuthorOrReadOnly
 
 # Create your views here.
 
@@ -20,10 +21,24 @@ class PostViewSet(viewsets.ModelViewSet):
     renderer_classes = [TemplateHTMLRenderer, JSONRenderer]
     template_name = 'insta/post_detail.html'
 
+    def get_permissions(self):
+        if self.action in ['list', 'retrieve']:
+            return [AllowAny()]
+        elif self.action in ['update', 'partial_update', 'destroy']:
+            return [IsAuthenticated(), IsAuthorOrReadOnly()]
+        else:
+            return [IsAuthenticated()]
+
     def get_queryset(self):
-        if self.request.user.is_authenticated:
-            return Posts.objects.filter(Q(author__in=self.request.user.following.all()) | Q(author=self.request.user)).order_by('-created_at')
-        return Posts.objects.all()
+        if self.action == 'list':
+            if not self.request.user.is_authenticated:
+                return Posts.objects.all().order_by('-created_at')
+            return Posts.objects.filter(Q(author__in=self.request.user.following.all())).order_by('-created_at')
+
+        if not self.request.user.is_authenticated:
+            return Posts.objects.all().order_by('-created_at')
+        return Posts.objects.filter(Q(author__in=self.request.user.following.all()) | Q(author=self.request.user)).order_by('-created_at')
+
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
@@ -84,7 +99,6 @@ class PostViewSet(viewsets.ModelViewSet):
 
     def partial_update(self, request, *args, **kwargs):
         instance = self.get_object()
-        # self.perform_update(instance)
         serializer = self.get_serializer(instance, data=request.data, partial=True)
 
         if not serializer.is_valid():
@@ -113,10 +127,6 @@ class PostViewSet(viewsets.ModelViewSet):
             raise PermissionDenied("Вы не можете удалить чужой пост")
         instance.delete()
 
-    # def perform_update(self, instance):
-    #     if instance.author != self.request.user:
-    #         raise PermissionDenied("")
-    #
 
     @action(detail=True, methods=['get'], url_path='delete')
     def delete_confirm(self, request, *args, **kwargs):

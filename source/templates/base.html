@@ -42,8 +42,15 @@
                         </form>
                     </li>
                 {% else %}
-                    {% block nav %}
-                    {% endblock %}
+                     <li class="nav-item">
+                        <form action="{% url 'accounts:login' %}" method="get">
+                            {% csrf_token %}
+                            <button type="submit"
+                                    class="nav-link btn btn-link">
+                                Войти
+                            </button>
+                        </form>
+                    </li>
                 {% endif %}
             </ul>
 

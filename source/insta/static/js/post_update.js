@@ -61,12 +61,12 @@ async function onClick(event) {
 
     let resultDiv = document.getElementById('result');
 
-    if (result.error) {
-        let errorText = result.error.text ? result.error.text.join(', ') : JSON.stringify(result.error);
+    if (result.error || result.detail) {
+       let errorText = 'У вас нет прав для редактирования этого поста';
         resultDiv.innerText = 'Ошибка: ' + errorText;
         resultDiv.style.color = 'red';
     } else {
-        window.location.href = `/posts/7/`;
+        window.location.href = url;
     }
 }
 

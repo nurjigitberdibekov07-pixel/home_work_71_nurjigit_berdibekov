@@ -153,5 +153,5 @@ MEDIA_URL = '/uploads/'
 
 AUTH_USER_MODEL = 'accounts.MyUser'
 
-LOGIN_REDIRECT_URL = 'insta:posts_list'
+LOGIN_REDIRECT_URL = 'insta:posts-list'
 LOGOUT_REDIRECT_URL = 'accounts:login'
