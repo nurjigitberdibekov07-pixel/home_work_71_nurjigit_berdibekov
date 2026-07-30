@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <form id="delete-form" action="{% url 'insta:posts-detail' post.pk %}" class="w-50 mx-auto">
+        <p>Удалить пост?</p>
+        <button type="submit" class="btn btn-danger">Удалить</button>
+    </form>
+    <div id="result"></div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/post_delete.js' %}"></script>
+{% endblock %}

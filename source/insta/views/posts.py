@@ -99,20 +99,26 @@ class PostViewSet(viewsets.ModelViewSet):
             return Response(serializer.data)
         return redirect('insta:posts-detail', pk=instance.pk)
 
-class PostDetailView(PermissionRequiredMixin, DetailView):
-    model = Posts
-    template_name = 'insta/post_detail.html'
-    context_object_name = 'post'
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
 
-    def has_permission(self):
-        return self.request.user.is_authenticated
+        if request.accepted_renderer.format == 'json':
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return redirect('insta:posts-list')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
 
-        context['comments_form'] = CommentsForm()
+    def perform_destroy(self, instance):
+        if instance.author != self.request.user:
+            raise PermissionDenied("Вы не можете удалить чужой пост")
+        instance.delete()
 
-        context['comments'] = Comments.objects.filter(post=self.object).order_by('created_at')
+    # def perform_update(self, instance):
+    #     if instance.author != self.request.user:
+    #         raise PermissionDenied("")
+    #
 
-        return context
-
+    @action(detail=True, methods=['get'], url_path='delete')
+    def delete_confirm(self, request, *args, **kwargs):
+        post = self.get_object()
+        return Response({'post': post}, template_name='insta/post_delete.html')
