@@ -63,7 +63,7 @@
     {% if request.user.pk == user_object.pk  %}
         <div class="action_buttons d-flex justify-content-center mt-5 px-5">
             <div>
-                <a href="{% url 'insta:post_create' user_object.pk %}" class="btn btn-bd-purple px-5">Add post</a>
+                <a href="{% url 'insta:posts-new' %}" class="btn btn-bd-purple px-5">Add post</a>
             </div>
         </div>
     {% endif %}

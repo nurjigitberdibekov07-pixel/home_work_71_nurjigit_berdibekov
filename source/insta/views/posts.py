@@ -60,14 +60,11 @@ class PostViewSet(viewsets.ModelViewSet):
         }
         return Response(context, status=status.HTTP_200_OK)
 
-    def dispatch(self, request, *args, **kwargs):
-        self.form = SimpleSearchForm(self.request.GET )
-        return super().dispatch(request, *args, **kwargs)
+    @action(detail=False, methods=['get'], url_path='new')
+    def new(self, request, *args, **kwargs):
+        form = PostForm()
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['search_form'] = self.form
-        return context
+        return Response({'form': form}, template_name='insta/post_create.html')
 
     def get_success_url(self):
         next_url = self.request.GET.get('next')
@@ -77,11 +74,14 @@ class PostViewSet(viewsets.ModelViewSet):
             next_url = reverse('accounts:detail', kwargs={'pk': self.request.user.pk})
         return next_url
 
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if not serializer.is_valid():
+            form = PostForm(request.data, request.FILES)
+            return Response({'form': form}, status=status.HTTP_400_BAD_REQUEST)
 
-class PostsListView(PermissionRequiredMixin, ListView):
-    model = Posts
-    template_name = 'insta/posts_list.html'
-    context_object_name = 'posts'
+        self.perform_create(serializer)
+        return redirect('insta:posts-list')
 
     def has_permission(self):
         return self.request.user.is_authenticated
